@@ -115,32 +115,38 @@ namespace NinetiesTV
         // 11. Return the names of the shows that had fewer than 100 episodes.
         static List<string> FewEpisodes(List<Show> shows)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return shows.Where(s => s.EpisodeCount < 100).Select(s => s.Name).ToList();
         }
 
         // 12. Return all shows ordered by the number of years on air.
         //     Assume the number of years between the start and end years is the number of years the show was on.
         static List<Show> ShowsByDuration(List<Show> shows)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            // return shows.OrderByDescending(s => s.StartYear - s.EndYear).ToList();
+            return shows.OrderByDescending(s => s.EndYear - s.StartYear).ToList();
         }
 
         // 13. Return the names of the comedy shows sorted by IMDB rating.
         static List<string> ComediesByRating(List<Show> shows)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return shows.Where(s => s.Genres.Contains("Comedy")).OrderByDescending(s => s.ImdbRating).Select(s => s.Name).ToList();
         }
 
         // 14. Return the shows with more than one genre ordered by their starting year.
         static List<Show> WithMultipleGenresByStartYear(List<Show> shows)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return shows.Where(s => s.Genres.Count > 1).OrderBy(s => s.StartYear).ToList();
         }
 
         // 15. Return the show with the most episodes.
         static Show MostEpisodes(List<Show> shows)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return shows.OrderByDescending(s => s.EpisodeCount).FirstOrDefault();
         }
 
         // 16. Order the shows by their ending year then return the first 
