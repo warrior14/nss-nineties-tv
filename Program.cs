@@ -232,10 +232,76 @@ namespace NinetiesTV
         **************************************************************************************************/
 
         // 1. Return the genres of the shows that started in the 80s.
+
+
+
+        static string EightiesShowGenres(List<Show> shows)
+        {
+            List<Show> eightiesShow = shows.Where(s => s.StartYear > 1979 && s.EndYear < 1990).ToList();
+
+
+            IEnumerable<string> showGenres = eightiesShow.SelectMany(s => s.Genres).Distinct().OrderBy(g => g);
+
+            return String.Join(", ", showGenres);
+        }
+
+
+
+
         // 2. Print a unique list of geners.
+
+
+        static List<string> UniqueGenres(List<Show> shows)
+        {
+            return shows.SelectMany(s => s.Genres).Distinct().ToList();
+        }
+
+
+
+
         // 3. Print the years 1987 - 2018 along with the number of shows that started in each year (note many years will have zero shows)
+
+
+
+
+        static List<string> ShowsEachYear(List<Show> shows)
+        {
+            List<string> showsEachYear = new List<string>();
+            for (int i = 1987; i < 2019; i++)
+            {
+                int count = shows.Where(s => s.StartYear == i).Count();
+                showsEachYear.Add($"In the year {i}, {count} shows aired.");
+            }
+                return showsEachYear;
+        }
+
+
+
+
+
         // 4. Assume each episode of a comedy is 22 minutes long and each episode of a show that isn't a comedy is 42 minutes. How long would it take to watch every episode of each show?
+
+            static int WatchShowTime(List<Show> shows)
+        {
+            List<Show> comedies = shows.Where(s => s.Genres.Contains("Comedy")).ToList();
+            List<Show> notComedy = shows.Where(s => s.Genres!.Contains("Comedy")).ToList();
+            return comedies.Count * 22 + notComedy.Count * 42;
+        }
+
         // 5. Assume each show ran each year between its start and end years (which isn't true), which year had the highest average IMDB rating.
+
+
+        static int HighestRatingYear(List<Show> shows)
+        {
+            List<double> averageRatingsByYear = new List<double>();
+            for (int i = shows.Min(s => s.StartYear); i <= shows.Max(s => s.EndYear); i++)
+            {
+                double averageRating = shows.Where(s => s.StartYear <= i && s.EndYear >= i).Average(s => s.ImdbRating);
+                averageRatingsByYear.Add(averageRating);
+            }
+                double highestRating = averageRatingsByYear.Max();
+                return averageRatingsByYear.IndexOf(highestRating) + shows.Min(s => s.StartYear);
+        }
 
 
 
