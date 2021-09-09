@@ -190,19 +190,32 @@ namespace NinetiesTV
         // 21. Return the show with the most words in the name.
         static Show WordieastName(List<Show> shows)
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
+          return shows.OrderByDescending(s => s.Name.Split(" ").Count()).FirstOrDefault();
         }
 
         // 22. Return the names of all shows as a single string seperated by a comma and a space.
         static string AllNamesWithCommas(List<Show> shows)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            
+            List<string> combinedShowNames = shows.Select(s => s.Name).ToList();
+            return String.Join(", ", combinedShowNames);
+            
         }
 
         // 23. Do the same as above, but put the word "and" between the second-to-last and last show name.
         static string AllNamesWithCommasPlsAnd(List<Show> shows)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            List<string> allButLastTwoShows = shows.Take(shows.Count() - 2).Select(s => s.Name).ToList();
+            List<string> lastTwoShows = shows.Skip(shows.Count() - 2).Select(s => s.Name).ToList();
+
+            string showNameString = String.Join(", ", allButLastTwoShows);
+            showNameString += $", {String.Join(" and ", lastTwoShows)}";
+
+            return showNameString;
+
         }
 
 
